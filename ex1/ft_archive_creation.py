@@ -7,7 +7,7 @@
 #   By: marasolo <marasolo@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/11 09:40:16 by marasolo            #+#    #+#            #
-#   Updated: 2026/06/15 19:12:51 by marasolo           ###   ########.fr      #
+#   Updated: 2026/06/16 07:45:07 by marasolo           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -23,7 +23,6 @@ def read_file(file_name: str) -> str:
         file = open(file_name)
     except OSError as e:
         print(f"Error opening file '{file_name}': {e}")
-        return
 
     content: str = file.read()
     print("---")
@@ -35,7 +34,7 @@ def read_file(file_name: str) -> str:
     return content
 
 
-def save_file(file_name: str, content: str) -> str:
+def save_file(file_name: str, content: str) -> None:
     file: typing.IO[str]
     try:
         file = open(file_name, "w")
@@ -53,6 +52,9 @@ def main() -> None:
         return
 
     content = read_file(sys.argv[1])
+    if content is None:
+        return
+
     lines: list[str] = content.splitlines()
     new_content: str = ""
     for line in lines:
@@ -65,15 +67,15 @@ def main() -> None:
     print("---")
     new_file_name: str = input("Enter new file name (or empty): ")
     if new_file_name == "":
-        print("No file name provided.")
+        print("Not saving data.")
         return
     else:
         print(f"Saving data to '{new_file_name}'.")
         save_file(new_file_name, new_content)
+
 
 if __name__ == "__main__":
     try:
         main()
     except BaseException as e:
         print(e)
-        sys.exit(1)

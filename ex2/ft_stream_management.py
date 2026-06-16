@@ -7,7 +7,7 @@
 #   By: marasolo <marasolo@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/15 11:43:22 by marasolo            #+#    #+#            #
-#   Updated: 2026/06/15 19:22:50 by marasolo           ###   ########.fr      #
+#   Updated: 2026/06/16 07:42:41 by marasolo           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -24,7 +24,6 @@ def read_file(file_name: str) -> str:
     except OSError as e:
         sys.stderr.write(f"[STDERR] Error opening file '{file_name}': {e}")
         sys.stderr.flush()
-        return
 
     content: str = file.read()
     print("---")
@@ -36,13 +35,15 @@ def read_file(file_name: str) -> str:
     return content
 
 
-def save_file(file_name: str, content: str) -> str:
+def save_file(file_name: str, content: str) -> None:
     file: typing.IO[str]
     try:
         file = open(file_name, "w")
     except OSError as e:
         sys.stderr.write(f"Error opening file '{file_name}': {e}")
         sys.stderr.flush()
+        print()
+        print("Data not saved.")
         return
     file.write(content)
     file.close()
@@ -55,6 +56,8 @@ def main() -> None:
         return
 
     content = read_file(sys.argv[1])
+    if content is None:
+        return
     lines: list[str] = content.splitlines()
     new_content: str = ""
     for line in lines:
@@ -71,7 +74,7 @@ def main() -> None:
     new_file_name: str = sys.stdin.readline().rstrip("\n")
 
     if new_file_name == "":
-        print("No file name provided.")
+        print("Not saving data.")
         return
     else:
         print(f"Saving data to '{new_file_name}'.")

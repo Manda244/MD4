@@ -7,7 +7,7 @@
 #   By: marasolo <marasolo@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/09 18:59:38 by marasolo            #+#    #+#            #
-#   Updated: 2026/06/15 17:12:38 by marasolo           ###   ########.fr      #
+#   Updated: 2026/06/16 07:46:11 by marasolo           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -35,8 +35,8 @@ def main() -> None:
     print("---")
     print()
     print(content)
-    if content and not content.endswith("\n"):
-        print()
+    if content is None:
+        return
     print("---")
     file.close()
     print(f"File '{file_name}' closed.")
